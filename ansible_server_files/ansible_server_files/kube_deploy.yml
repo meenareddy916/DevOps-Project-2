@@ -1,0 +1,13 @@
+---
+- hosts: kubernetes
+  user: root
+  tasks:
+    - name: deploy regapp on k8s
+      command: kubectl apply -f regapp-deployment.yml
+
+    - name: create service LB on k8s
+      command: kubectl apply -f regapp-service.yml
+    
+    - name: update deployment if image is updated
+      command: kubectl rollout restart deployment.apps/demo-regapp
+
